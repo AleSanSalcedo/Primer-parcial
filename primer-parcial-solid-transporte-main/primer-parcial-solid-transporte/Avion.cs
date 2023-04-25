@@ -6,54 +6,61 @@ using System.Threading.Tasks;
 
 namespace primer_parcial_solid_transporte
 {
-    public class Avion : ITransporte
+    public class Avion : ITransporte, ITransporteVolador
     {
-        public string _nombre;
-        public int _velocidadActual;
-        public int _velocidadMaxima;
-        public int _alturaActual;
-        public int _alturaMaxima;
+        private string nombre;
+        private int velocidadActual;
+        private int velocidadMaxima;
+        private int alturaActual;
+        private int alturaMaxima;
 
+        public Avion (string nombre, int velocidadActual, int velocidadMaxima, int alturaActual, int alturaMaxima)
+        {
+            this.nombre = nombre;
+            this.velocidadActual = velocidadActual;
+            this.velocidadMaxima = velocidadMaxima;
+            this.alturaActual = alturaActual;
+            this.alturaMaxima = alturaMaxima;
+        }
         public void Acelerar(int velocidad)
         {
-            if ((this._velocidadActual + velocidad) <= this._velocidadMaxima)
+            if ((this.velocidadActual + velocidad) <= this.velocidadMaxima)
             {
-                this._velocidadActual += velocidad;
+                this.velocidadActual += velocidad;
             }
         }
 
         public void Desacelerar(int velocidad)
         {
-            if ((this._velocidadActual - velocidad) >= 0)
+            if ((this.velocidadActual - velocidad) >= 0)
             {
-                this._velocidadActual -= velocidad;
+                this.velocidadActual -= velocidad;
             }
             else
             {
-                this._velocidadActual = 0;
+                this.velocidadActual = 0;
             }
         }
 
         public void Volar(int altitud)
         {
-            if ((this._alturaActual + altitud) < 0)
+            if ((this.alturaActual + altitud) < 0)
             {
-                this._alturaActual = 0;
+                this.alturaActual = 0;
             }
-            else if ((this._alturaActual + altitud) > this._alturaMaxima)
+            else if ((this.alturaActual + altitud) > this.alturaMaxima)
             {
-                this._alturaActual = this._alturaMaxima;
+                this.alturaActual = this.alturaMaxima;
             }
             else
             {
-                this._alturaActual += altitud;
+                this.alturaActual += altitud;
             }
         }
 
         public void guardarEnBD()
         {
-            TransporteRepository repository = new TransporteRepository();
-            repository.guardar(this);
+            TransporteRepository.guardar(this);
         }
     }
 }

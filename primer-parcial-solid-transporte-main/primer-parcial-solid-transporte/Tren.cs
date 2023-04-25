@@ -8,39 +8,45 @@ namespace primer_parcial_solid_transporte
 {
     public class Tren : ITransporte
     {
-        public string _nombre;
-        public int _velocidadActual;
-        public int _velocidadMaxima;
+        private string nombre;
+        private int velocidadActual;
+        private int velocidadMaxima;
 
+
+        public Tren (string nombre, int velocidadActual, int velocidadMaxima)
+        {
+            this.nombre = nombre;
+            this.velocidadActual = velocidadActual;
+            this.velocidadMaxima = velocidadMaxima;
+        }
         public void Acelerar(int velocidad)
         {
-            if ((this._velocidadActual + velocidad) <= this._velocidadMaxima)
+            if ((this.velocidadActual + velocidad) <= this.velocidadMaxima)
             {
-                this._velocidadActual += velocidad;
+                this.velocidadActual += velocidad;
             }
         }
 
         public void Desacelerar(int velocidad)
         {
-            if ((this._velocidadActual - velocidad) >= 0)
+            if ((this.velocidadActual - velocidad) >= 0)
             {
-                this._velocidadActual -= velocidad;
+                this.velocidadActual -= velocidad;
             }
             else
             {
-                this._velocidadActual = 0;
+                this.velocidadActual = 0;
             }
         }
 
-        public void Volar(int altitud)
+        /*public void Volar(int altitud)
         {
             return;
-        }
+        }*/
 
         public void guardarEnBD()
         {
-            TransporteRepository repository = new TransporteRepository();
-            repository.guardar(this);
+            TransporteRepository.guardar(this);
         }
     }
 }
